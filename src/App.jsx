@@ -3,6 +3,8 @@ import './App.css'
 import Navbar from "./Navbar";
 import GamePage from './GamePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import EndOfDayCountdown from './EndOfDayCountdown';
+import CalendarComponent from './CalendarComponent';
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 //import { Checkbox } from "@/components/ui/checkbox";
@@ -52,9 +54,9 @@ function Home(){
     </div>
 
   <div className='container2'>
-    <button>Calendar</button>
     <button>Daily-to-do-list</button>
-    <button>Countdown</button>
+    <EndOfDayCountdown></EndOfDayCountdown>
+    <CalendarComponent></CalendarComponent>
     <button>Progress-Bar/Pie-Chart</button>
     <button>Streak</button>
   </div>

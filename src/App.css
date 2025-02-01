@@ -25,7 +25,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  background-color: #58b0fc;
+  background-color: #ffffff;
   width: 50%;
   padding: 20px;
   border-radius: 15px;
@@ -35,9 +35,20 @@
   width: 25vw; 
 }
 .container2{
+  display:flex;
   flex-direction: row;
-  justify-self: center;
+  justify-content: center;
   align-items: center;
+  gap: 20px;
+  background-color: #b3ebf2;
+  width: 50%;
+  padding: 20px;
+  border-radius: 15px;
+
+}
+.countdown{
+  background-color: aliceblue;
+  color: red;
 }
 /*
 #root {
