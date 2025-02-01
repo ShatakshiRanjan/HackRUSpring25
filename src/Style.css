@@ -36,13 +36,12 @@ body, html {
 /* Pet */
 .pet-container {
     position: absolute;
-    bottom: 30%;
+    bottom: 5%;
     text-align: center;
 }
 
 .pet-container img {
-    width: 200px;
-    max-width: 20vw;
+    width: 30vw;
 }
 
 /* Food Shop */
@@ -84,4 +83,48 @@ body, html {
     height: 100%;
     background: #ff4d4d;
     transition: width 0.5s;
+}
+
+.eyes {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.eye {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    display: inline-block;
+    margin: 5px;
+    left: 30px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    animation: blink 5s infinite;
+    border: solid 3px #000;
+}
+
+@-webkit-keyframes blink {
+    0%, 100% {
+        transform: scale(1, .05);
+    }
+    5%,
+    95% {
+        transform: scale(1, 1);
+    }
+}
+
+.ball {
+    width: 20px;
+    height: 20px;
+    background: #000;
+    position: absolute; /* relative */
+    top: 50%;
+    left: 30%;
+    transform: translate(50%, 50%);
+    border-radius: 50%;
+    border: 10px solid #6d6875;
 }
