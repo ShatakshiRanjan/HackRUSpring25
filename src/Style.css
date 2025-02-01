@@ -95,17 +95,17 @@ body, html {
 }
 
 .eye {
-    width: 100px;
-    height: 100px;
+    width: 6vw; /* Adjust size relative to viewport width */
+    height: 6vw; /* Maintain circular shape */
     background: #fff;
     display: inline-block;
-    margin: 5px;
-    left: 35px;
+    margin: 0.5vw; /* Adjust margin for spacing */
+    left: 2vw; /* Use auto for better alignment */
     border-radius: 50%;
     position: relative;
     overflow: hidden;
     animation: blink 10s infinite;
-    border: solid 1px #000;
+    border: solid 0.1vw #000; /* Border adjusts with eye size */
 }
 
 @-webkit-keyframes blink {
@@ -118,13 +118,13 @@ body, html {
 }
 
 .ball {
-    width: 20px;
-    height: 20px;
+    width: 20%; /* Size relative to the eye */
+    height: 20%; /* Maintain circular shape */
     background: #000;
-    position: absolute; /* relative */
-    top: 40%;
-    left: 30%;
-    transform: translate(100%, 100%);
+    position: absolute;
+    top: 40%; /* Center pupil inside eye */
+    left: 40%; /* Center pupil inside eye */
+    transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 10px solid #6d6875;
+    border: 0.5vw solid #6d6875; /* Scales with viewport */
 }
