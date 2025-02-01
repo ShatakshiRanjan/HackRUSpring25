@@ -83,6 +83,7 @@ body, html {
     height: 100%;
     background: #ff4d4d;
     transition: width 0.5s;
+    border-radius: 10px;
 }
 
 .eyes {
@@ -99,21 +100,20 @@ body, html {
     background: #fff;
     display: inline-block;
     margin: 5px;
-    left: 30px;
+    left: 35px;
     border-radius: 50%;
     position: relative;
     overflow: hidden;
-    animation: blink 5s infinite;
-    border: solid 3px #000;
+    animation: blink 10s infinite;
+    border: solid 1px #000;
 }
 
 @-webkit-keyframes blink {
-    0%, 100% {
-        transform: scale(1, .05);
+    0%, 97%, 100% {
+        transform: scale(1, 1); /* Eye fully open */
     }
-    5%,
-    95% {
-        transform: scale(1, 1);
+    98%, 99% {
+        transform: scale(1, 0.1); /* Eye quickly closes */
     }
 }
 
@@ -122,9 +122,9 @@ body, html {
     height: 20px;
     background: #000;
     position: absolute; /* relative */
-    top: 50%;
+    top: 40%;
     left: 30%;
-    transform: translate(50%, 50%);
+    transform: translate(100%, 100%);
     border-radius: 50%;
     border: 10px solid #6d6875;
 }

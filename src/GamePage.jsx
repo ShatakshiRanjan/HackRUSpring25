@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import "./Style.css";
 
 const GamePage = () => {
-  const [hunger, setHunger] = useState(50); // Starting hunger level
+  const [hunger, setHunger] = useState(20); // Starting hunger level
   const [money] = useState(Infinity); // Unlimited money for now
-
-  // State for eye movement
-  const [pupilPosition, setPupilPosition] = useState({ x: 0, y: 0 });
+  const [pupilPosition, setPupilPosition] = useState({ x: 0, y: 0 }); // State for pupil movement
 
   // Food options
   const foodOptions = [
@@ -15,25 +13,22 @@ const GamePage = () => {
     { name: "🍖 Meat", cost: 20, hungerIncrease: 25 },
   ];
 
-  // Feed pet logic
+  // Feed the pet
   const handleFeedPet = (hungerIncrease) => {
-    setHunger((prev) => Math.min(prev + hungerIncrease, 100)); // Hunger cannot exceed 100%
+    setHunger((prev) => Math.min(prev + hungerIncrease, 100)); // Max hunger is 100%
   };
 
-  // Handle mouse movement for eyes
+  // Handle mouse movement to move the eyes
   const handleMouseMove = (e) => {
-    const container = e.currentTarget.getBoundingClientRect(); // Get pet container dimensions
-    const centerX = container.left + container.width / 2; // Center X of container
-    const centerY = container.top + container.height / 2; // Center Y of container
+    const container = e.currentTarget.getBoundingClientRect();
+    const centerX = container.left + container.width / 2;
+    const centerY = container.top + container.height / 2;
 
-    // Calculate mouse offset from center
     const dx = e.clientX - centerX;
     const dy = e.clientY - centerY;
 
     const angle = Math.atan2(dy, dx);
-
-    // Limit pupil movement within the eye
-    const maxOffset = 20; // Maximum distance pupil can move
+    const maxOffset = 20; // Maximum pupil movement
     const x = Math.cos(angle) * maxOffset;
     const y = Math.sin(angle) * maxOffset;
 
@@ -45,7 +40,7 @@ const GamePage = () => {
       {/* Money Display */}
       <div className="money-container">
         <p>
-          Money: <span>{money}</span> coins
+          Coins: <span>{money}</span> 🪙
         </p>
       </div>
 
@@ -53,11 +48,17 @@ const GamePage = () => {
       <div className="pet-container">
         <img
           id="pet-image"
-          src={hunger < 50 ? "public/pet_nah.png" : "public/pet_happy.png"}
+          src={
+            hunger <= 25
+              ? "pet_sad.png"
+              : hunger <= 65
+              ? "pet_nah.png"
+              : "pet_happy.png"
+          }
           alt="Virtual Pet"
         />
 
-        {/* Eyes with Pupil Movement */}
+        {/* Eyes */}
         <div className="eyes">
           <div className="eye">
             <div
@@ -79,9 +80,9 @@ const GamePage = () => {
 
         {/* Pet Status */}
         <p id="pet-status">
-          {hunger <= 0
+          {hunger <= 25
             ? "Your pet is starving!"
-            : hunger < 50
+            : hunger <= 65
             ? "Your pet is still hungry!"
             : "Your pet is happy!"}
         </p>
@@ -119,4 +120,3 @@ const GamePage = () => {
 };
 
 export default GamePage;
-
