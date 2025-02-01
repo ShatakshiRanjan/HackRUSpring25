@@ -16,13 +16,16 @@
         <label for="task_date">Task Date:</label>
         <input type="date" name="task_date" required><br><br>
 
+        <label for="task_name">Task Difficulty:</label>
+        <input type="text" name="task_difficulty" required><br><br>
+
         <input type="submit" value="Add Task">
     </form>
 
     <h2>Task List</h2>
     <ul>
         {% for task in tasks %}
-            <li>{{ task.task_name }} ({{ task.task_date }}) 
+            <li>{{ task.task_name }} {{ task.task_difficulty }} ({{ task.task_date }}) 
                 <a href="/delete/{{ task.id }}">Delete</a>
             </li>
         {% endfor %}
