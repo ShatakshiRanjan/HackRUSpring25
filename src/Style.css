@@ -67,8 +67,11 @@ body, html {
 /* Progress Bar */
 .progress-container {
     position: absolute;
-    top: 15%;
+    top: 0;
     width: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .progress-bar {
@@ -99,13 +102,13 @@ body, html {
     height: 6vw; /* Maintain circular shape */
     background: #fff;
     display: inline-block;
-    margin: 0.5vw; /* Adjust margin for spacing */
-    left: 2vw; /* Use auto for better alignment */
+    margin: 0.5vw; 
+    left: 2vw; 
     border-radius: 50%;
     position: relative;
     overflow: hidden;
     animation: blink 10s infinite;
-    border: solid 0.1vw #000; /* Border adjusts with eye size */
+    border: solid 0.1vw #000; 
 }
 
 @-webkit-keyframes blink {
