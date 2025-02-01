@@ -15,6 +15,7 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task_name = db.Column(db.String(200), nullable=False)
     task_date = db.Column(db.String(100), nullable=False)
+    task_completed = db.Column(db.Boolean, default=False, nullable=False)
 
     def __repr__(self):
         return f'<Task {self.task_name}>'
@@ -44,6 +45,16 @@ def add_task():
         db.session.commit()
 
         return redirect(url_for('index'))
+    
+    
+# Route to toggle the task's completion status
+@app.route('/toggle_completed/<int:id>')
+def toggle_completed(id):
+    task = Task.query.get_or_404(id)
+    task.task_completed = not task.task_completed  # Toggle the completion status
+    db.session.commit()
+    return redirect(url_for('index'))
+
 
 # Route to delete a task
 @app.route('/delete/<int:id>')
@@ -54,4 +65,4 @@ def delete_task(id):
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
