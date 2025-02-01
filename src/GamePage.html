@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="public/pet_base.png">
+    <title>Pet Palace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="money-container">
+            <p>Money: <span id="money">∞</span> coins</p>
+        </div>
+
+        <div class="pet-container">
+            <img id="pet-image" src="public/pet-hungry.png" alt="Virtual Pet">
+            <p id="pet-status">Your pet is hungry!</p>
+        </div>
+
+        <div class="food-shop">
+            <h2>Food Options</h2>
+            <button class="food-item" data-cost="5" data-hunger="10">🍏 Apple (5 coins)</button>
+            <button class="food-item" data-cost="10" data-hunger="25">🥕 Carrot (10 coins)</button>
+            <button class="food-item" data-cost="20" data-hunger="50">🍖 Meat (20 coins)</button>
+        </div>
+
+        <div class="progress-container">
+            <p>Hunger Level</p>
+            <div class="progress-bar">
+                <div id="hunger-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
