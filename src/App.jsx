@@ -6,6 +6,7 @@ import GamePage from './GamePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import EndOfDayCountdown from './EndOfDayCountdown';
 import CalendarComponent from './CalendarComponent';
+import Checklist from './Checklist';
 //import { Checkbox } from "@/components/ui/checkbox";
 
 function App() {
@@ -46,7 +47,11 @@ function Home(){
         <h2>Task Management Game</h2>
         <h3>Complete real-life tasks to keep your virtual pet alive</h3>
         <div>
-          <input type = 'text' placeholder='Add Task'/>
+          <input type = 'text' placeholder='Add a task with difficulty'/>
+          <select name="difficulty" id="diff">
+            <option value="easy">Easy</option>
+            <option value="hard">Hard</option>
+          </select>
           <input type = 'date'placeholder='Due Date'/>
           <button>Go</button>
         </div>
@@ -54,9 +59,9 @@ function Home(){
     </div>
 
   <div className='container2'>
-    <button>Daily-to-do-list</button>
-    <EndOfDayCountdown></EndOfDayCountdown>
     <CalendarComponent></CalendarComponent>
+    <EndOfDayCountdown></EndOfDayCountdown>
+    <Checklist></Checklist>
     <button>Progress-Bar/Pie-Chart</button>
     <button>Streak</button>
   </div>

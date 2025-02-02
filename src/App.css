@@ -17,8 +17,7 @@
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  gap: 20px;
-
+  /*gap: 20px;*/
 }
 .container1{
   display:flex;
@@ -26,8 +25,8 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  background-color: #ffffff;
-  width: 75%;
+  background-color: #ff9696f6;
+  width: 70%;
   padding: 20px;
   border-radius: 15px;
 }
@@ -41,8 +40,8 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  background-color: #b3ebf2;
-  width: 75%;
+  background-color: #84e6f3f1;
+  width: 70%;
   padding: 20px;
   border-radius: 15px;
 
