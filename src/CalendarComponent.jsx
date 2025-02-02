@@ -49,13 +49,21 @@ const CalendarComponent = () => {
                 tileContent={({ date }) => {
                     const dateString = date.toISOString().split("T")[0];
                     return tasks[dateString] ? (
-                        <ul className="task-list">
-                            {tasks[dateString].map((task, index) => (
-                                <li key={index} style={{ color: task.completed ? "gray" : "black" }}>
-                                    {task.text}
-                                </li>
-                            ))}
-                        </ul>
+                        <div>
+                            <ul className="task-list">
+                                {tasks[dateString].map((task, index) => (
+                                    <li key={index} style={{ color: task.completed ? "gray" : "black" }}>
+                                        {task.text}
+                                    </li>
+                                ))}
+                            </ul>
+                            {/* Tooltip that appears on hover */}
+                            <div className="tooltip">
+                                {tasks[dateString].map((task, index) => (
+                                    <div key={index}>{task.text} ({task.difficulty})</div>
+                                ))}
+                            </div>
+                        </div>
                     ) : null;
                 }}
             />
