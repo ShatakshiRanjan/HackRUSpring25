@@ -1,0 +1,30 @@
+.donut-chart-container {
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+.task-list {
+    font-size: 1rem; /* Improve readability */
+    line-height: 1.4;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.task-list li {
+    padding: 8px;
+    margin: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 8px;
+}
+
+.completed {
+    background-color: rgba(0, 255, 0, 0.3); /* Light green */
+}
+
+.task {
+    background-color: rgba(255, 165, 0, 0.3); /* Light orange */
+}
