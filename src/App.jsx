@@ -103,11 +103,8 @@ function Home({ taskName, setTaskName, taskDate, setTaskDate, taskDifficulty, se
         <CalendarComponent />
         <EndOfDayCountdown />
         <Checklist />
-        <button>Progress-Bar/Pie-Chart</button>
-        <DonutPieChart>
-        </DonutPieChart>
+        <DonutPieChart></DonutPieChart>
         <Streak></Streak>
-        <button>Streak</button>
       </div>
     </div>
   );

@@ -1,30 +1,28 @@
-.donut-chart-container {
-    max-width: 400px;
-    margin: auto;
-    text-align: center;
+.donut-chart-wrapper {
+    width: 190px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
 }
 
-.task-list {
-    font-size: 1rem; /* Improve readability */
-    line-height: 1.4;
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
+.progress-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
 }
 
-.task-list li {
-    padding: 8px;
-    margin: 5px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-radius: 8px;
-}
-
-.completed {
-    background-color: rgba(0, 255, 0, 0.3); /* Light green */
-}
-
-.task {
-    background-color: rgba(255, 165, 0, 0.3); /* Light orange */
+.donut-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    color: black;
 }

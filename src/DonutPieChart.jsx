@@ -1,57 +1,64 @@
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import 'chart.js/auto'; // Ensures Chart.js works properly
+import React, { useState, useEffect } from "react";
+import { Doughnut } from "react-chartjs-2";
+import axios from "axios";
+import "chart.js/auto";
+import "./DonutPieChart.css"; 
 
-const DonutPieChart = ({ completedTasks, uncompletedTasks }) => {
-    const data = {
-        labels: ['Completed', 'Uncompleted'],
-        datasets: [
-            {
-                data: [completedTasks, uncompletedTasks],
-                backgroundColor: [
-                    'rgba(0, 255, 0, 0.3)',   // Light green for completed
-                    'rgba(255, 165, 0, 0.3)' // Light orange for uncompleted
-                ],
-                borderColor: [
-                    'rgba(0, 255, 0, 1)',   // Solid green border
-                    'rgba(255, 165, 0, 1)' // Solid orange border
-                ],
-                borderWidth: 2,
-            },
-        ],
+const DonutPieChart = () => {
+  const [completedTasks, setCompletedTasks] = useState(0);
+  const [uncompletedTasks, setUncompletedTasks] = useState(0);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:5000/tasks/today");
+        const tasks = response.data;
+        const completed = tasks.filter((task) => task.task_completed).length;
+        setCompletedTasks(completed);
+        setUncompletedTasks(tasks.length - completed);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
     };
+    fetchTasks();
+  }, []);
 
-    const options = {
-        cutout: '70%', // Creates a donut effect
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-                labels: {
-                    font: {
-                        size: 14 // Increases font readability
-                    }
-                }
-            },
-            title: {
-                display: true,
-                text: 'Task Completion Overview',
-                font: {
-                    size: 16
-                }
-            }
-        }
-    };
+  const data = {
+    labels: ["Completed", "Uncompleted"],
+    datasets: [
+      {
+        data: [completedTasks, uncompletedTasks],
+        backgroundColor: ["#FF6B6B", "#4D96FF"], // Coral Pink & Blue
+        borderColor: ["#D64040", "#3562A5"], // Darker borders
+        borderWidth: 2,
+      },
+    ],
+  };
 
-    return (
-        <div className="donut-chart-container">
-            <Doughnut data={data} options={options} />
-            <ul className="task-list">
-                <li className="completed">Completed Tasks: {completedTasks}</li>
-                <li className="task">Uncompleted Tasks: {uncompletedTasks}</li>
-            </ul>
-        </div>
-    );
+  const options = {
+    cutout: "70%", 
+    responsive: false, 
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { 
+        display: true, 
+        text: "Progress", 
+        font: { size: 16, weight: "bold", family: "Arial, sans-serif" }, 
+        color: "#333"
+      },
+    },
+  };
+
+  return (
+    <div className="donut-chart-wrapper">
+      <h4 className="progress-title">Progress</h4>
+      <Doughnut data={data} options={options} />
+      <p className="donut-label">
+        ✅ {completedTasks} | ❌ {uncompletedTasks}
+      </p>
+    </div>
+  );
 };
 
 export default DonutPieChart;

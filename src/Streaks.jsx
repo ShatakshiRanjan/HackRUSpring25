@@ -1,31 +1,63 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Streak.css";
 
 const Streak = () => {
-  // Initializing state to store task completion dates
-  const [completedTasks, setCompletedTasks] = useState([]);
+  const [streak, setStreak] = useState(0);
 
-  // Function to add a completed task date
-  const addCompletedTask = (date) => {
-    setCompletedTasks((prevTasks) => [...prevTasks, date]);
-  };
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:5000/tasks");
+        const tasks = response.data;
 
-  // Use useEffect to calculate the total number of unique days
-  const uniqueDays = [...new Set(completedTasks.map(task => task))];
+        // Group tasks by date
+        const taskMap = {};
+        tasks.forEach((task) => {
+          if (!taskMap[task.task_date]) {
+            taskMap[task.task_date] = [];
+          }
+          taskMap[task.task_date].push(task);
+        });
+
+        // Convert to array of sorted dates
+        const completedDates = Object.keys(taskMap)
+          .filter((date) => taskMap[date].every((task) => task.task_completed)) // Keep only fully completed days
+          .sort((a, b) => new Date(a) - new Date(b)); // Sort in ascending order
+
+        let count = 0;
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let prevDate = new Date(today);
+
+        // Check for continuous streak until today
+        for (let i = completedDates.length - 1; i >= 0; i--) {
+          let currentDate = new Date(completedDates[i]);
+          currentDate.setHours(0, 0, 0, 0);
+
+          if (currentDate.getTime() === prevDate.getTime()) {
+            count++;
+          } else if (currentDate.getTime() === prevDate.getTime() - 86400000) {
+            count++;
+          } else {
+            break;
+          }
+          prevDate = currentDate;
+        }
+
+        setStreak(count);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
 
   return (
-    <div>
-      <h1>Total Days Tasks Were Completed: {uniqueDays.length}</h1>
-
-      <button onClick={() => addCompletedTask(new Date().toLocaleDateString())}>
-        Complete Task Today
-      </button>
-
-      <h2>Task Completion Dates:</h2>
-      <ul>
-        {uniqueDays.map((day, index) => (
-          <li key={index}>{day}</li>
-        ))}
-      </ul>
+    <div className="streak-container">
+      <h3>Streak</h3>
+      <div className="streak-circle">{streak} days</div>
     </div>
   );
 };
