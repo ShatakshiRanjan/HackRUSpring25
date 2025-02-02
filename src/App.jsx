@@ -5,6 +5,8 @@ import GamePage from "./GamePage";
 import EndOfDayCountdown from "./EndOfDayCountdown";
 import CalendarComponent from "./CalendarComponent";
 import Checklist from "./Checklist";
+import DonutPieChart from "./DonutPieChart";
+import Streak from "./Streaks";
 import { useState } from "react";
 import "./App.css";
 
@@ -102,6 +104,9 @@ function Home({ taskName, setTaskName, taskDate, setTaskDate, taskDifficulty, se
         <EndOfDayCountdown />
         <Checklist />
         <button>Progress-Bar/Pie-Chart</button>
+        <DonutPieChart>
+        </DonutPieChart>
+        <Streak></Streak>
         <button>Streak</button>
       </div>
     </div>

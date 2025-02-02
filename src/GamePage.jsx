@@ -3,11 +3,12 @@ import "./Style.css";
 
 const GamePage = () => {
   const [hunger, setHunger] = useState(() => parseInt(localStorage.getItem("hunger")) || 20);
-  const [money, setMoney] = useState(() => parseInt(localStorage.getItem("money")) || 0);
+  const [money, setMoney] = useState(() => parseInt(localStorage.getItem("money")) || 5);
   const [pupilPosition, setPupilPosition] = useState({ x: 0, y: 0 });
   const [petImage, setPetImage] = useState("/pet_meh.png");
   const [isEating, setIsEating] = useState(false);
   const [isQueasy, setIsQueasy] = useState(false);
+  const isIframe = window.location !== window.parent.location;
 
   const foodOptions = [
     { name: "🍏 Apple", cost: 5, hungerIncrease: 5 },
