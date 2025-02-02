@@ -6,7 +6,7 @@ from flask_socketio import SocketIO
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend-backend communication
+CORS(app, resources={r"/*": {"origins": "*"}}) # Enable CORS for frontend-backend communication
 socketio = SocketIO(app, cors_allowed_origins="*") #Enable WebSocket support
 
 # Set up SQLite database
