@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
 import About from "./About";
-import GamePage from './GamePage';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import EndOfDayCountdown from './EndOfDayCountdown';
-import CalendarComponent from './CalendarComponent';
-import Checklist from './Checklist';
+import GamePage from "./GamePage";
+import EndOfDayCountdown from "./EndOfDayCountdown";
+import CalendarComponent from "./CalendarComponent";
+import Checklist from "./Checklist";
+import "./App.css";
 
 function App() {
   return (
@@ -15,7 +14,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/game" element={<GamePage />} />
+          <Route path="/game" element={<GamePage isIframe={false} />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
@@ -26,21 +25,21 @@ function App() {
 function Home() {
   return (
     <div className="main-container">
+      {/* Container for iframe and task form */}
       <div className="container1">
-        {/* Replace placeholder image with iframe */}
-        <iframe 
-          className="game-iframe" 
-          src="http://localhost:5173/game" 
+        <iframe
+          className="game-iframe"
+          src="http://localhost:5173/game"
           title="Game Screen"
-          frameBorder="0">
-        </iframe>
+          frameBorder="0"
+        ></iframe>
 
         <div>
           <h2>Task Management Game</h2>
           <h3>Complete real-life tasks to keep your virtual pet alive</h3>
-          <div>
+          <div className="task-form">
             <input type="text" placeholder="Add a task with difficulty" />
-            <select name="difficulty" id="diff">
+            <select id="diff">
               <option value="easy">Easy</option>
               <option value="hard">Hard</option>
             </select>
@@ -50,6 +49,7 @@ function Home() {
         </div>
       </div>
 
+      {/* Calendar, Countdown, and Stats Section */}
       <div className="container2">
         <CalendarComponent />
         <EndOfDayCountdown />
