@@ -88,3 +88,15 @@
     transform: scale(1.1); 
   }
   */
+
+  /* Hide navbar when inside an iframe */
+@media (display-mode: fullscreen) {
+  .navbar {
+      display: none !important;
+  }
+}
+
+/* Additional fallback for iframes */
+iframe .navbar {
+  display: none !important;
+}
