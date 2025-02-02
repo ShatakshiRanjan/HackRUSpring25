@@ -53,8 +53,8 @@ body, html {
     right: 5%;
     width: 200px;
     font-size: 1.2rem;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
+    background: rgba(255, 255, 255, 0.6);
+    color: black;
     padding: 12px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -64,7 +64,7 @@ body, html {
 /* Food Shop - Positioned under Money Container */
 .food-shop {
     position: absolute;
-    top: 12%;
+    top: 20%;
     right: 5%;
     width: 200px;
     background: rgba(255, 255, 255, 0.9);

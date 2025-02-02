@@ -2,79 +2,111 @@ import React, { useState, useEffect } from "react";
 import "./Style.css";
 
 const GamePage = () => {
-  // 🥗 Load saved hunger & money or use defaults
   const [hunger, setHunger] = useState(() => parseInt(localStorage.getItem("hunger")) || 20);
-  const [money, setMoney] = useState(() => parseInt(localStorage.getItem("money")) || 100); // Default: 100 coins
+  const [money, setMoney] = useState(() => parseInt(localStorage.getItem("money")) || 0);
   const [pupilPosition, setPupilPosition] = useState({ x: 0, y: 0 });
   const [petImage, setPetImage] = useState("/pet_meh.png");
   const [isEating, setIsEating] = useState(false);
+  const [isQueasy, setIsQueasy] = useState(false);
 
-  // 🥕 Food Options
   const foodOptions = [
     { name: "🍏 Apple", cost: 5, hungerIncrease: 5 },
     { name: "🥕 Carrot", cost: 10, hungerIncrease: 10 },
     { name: "🍖 Meat", cost: 20, hungerIncrease: 25 },
   ];
 
-  // 🛠 Update pet emotion based on hunger level
+  // Update pet image based on state changes
   useEffect(() => {
-    setPetImage(hunger <= 25 ? "/pet_sad.png" : hunger <= 65 ? "/pet_nah.png" : "/pet_happy.png");
-  }, [hunger]);
+    if (!isEating && !isQueasy) {
+      setPetImage(hunger <= 25 ? "/pet_sad.png" : hunger <= 65 ? "/pet_nah.png" : "/pet_happy.png");
+    }
+  }, [hunger, isEating, isQueasy]);
 
-  // 💾 Save hunger & money to localStorage
+  // Save hunger and money to localStorage
   useEffect(() => {
     localStorage.setItem("hunger", hunger);
     localStorage.setItem("money", money);
   }, [hunger, money]);
 
-  // 🥩 Feed Pet
+  // Feed the pet
   const handleFeedPet = (hungerIncrease, cost) => {
     if (money >= cost) {
-      setMoney((prevMoney) => {
-        const newMoney = prevMoney - cost;
-        localStorage.setItem("money", newMoney); // Save new money state
-        return newMoney;
-      });
+      setMoney((prevMoney) => prevMoney - cost);
 
       setHunger((prevHunger) => {
         const newHunger = Math.min(prevHunger + hungerIncrease, 100);
-        setPetImage("/pet_hehe.png");
-        setIsEating(true);
 
-        setTimeout(() => {
-          setIsEating(false);
-          setPetImage(newHunger <= 25 ? "/pet_sad.png" : newHunger <= 65 ? "/pet_nah.png" : "/pet_happy.png");
-        }, 2000);
+        if (!isEating) {
+          setPetImage("/pet_hehe.png"); // Show eating image
+          setIsEating(true);
+
+          setTimeout(() => {
+            setIsEating(false);
+            setPetImage(newHunger <= 25 ? "/pet_sad.png" : newHunger <= 65 ? "/pet_nah.png" : "/pet_happy.png");
+          }, 2000);
+        }
 
         return newHunger;
       });
+    } else {
+      alert("Not enough coins!");
     }
   };
 
-  // 🔄 Simulate a New Day (Decrease Hunger, Add Money)
+  // Simulate a new day (reduce hunger, add coins)
   const handleNewDay = () => {
     setHunger((prev) => {
-      const newHunger = Math.max(prev - 30, 0); // Ensure hunger does not go below 0
-      localStorage.setItem("hunger", newHunger); // Save to localStorage
+      const newHunger = Math.max(prev - 30, 0);
+      localStorage.setItem("hunger", newHunger);
       return newHunger;
     });
 
     setMoney((prev) => {
-      const newMoney = prev + 50; // Give 50 coins per new day
-      localStorage.setItem("money", newMoney); // Save to localStorage
+      const newMoney = prev + 5;
+      localStorage.setItem("money", newMoney);
       return newMoney;
     });
 
-    console.log("🌅 New day started! Hunger decreased by 30. Money increased by 50.");
+    console.log("🌅 New day started! Hunger decreased by 30. Money increased by 5.");
   };
 
   // 🔄 Auto Simulate New Day Every 10 Seconds (For Testing)
   useEffect(() => {
-    const interval = setInterval(handleNewDay, 864000000); // Runs every 10 seconds
+    const interval = setInterval(handleNewDay, 600000); // Runs every 10 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
+  // Auto trigger a new day event at midnight
+  // useEffect(() => {
+  //   const scheduleNextDay = () => {
+  //     const now = new Date();
+  //     const nextMidnight = new Date(now);
+  //     nextMidnight.setDate(now.getDate() + 1);
+  //     nextMidnight.setHours(0, 0, 0, 0);
 
-  // 👀 Eye Movement Effect
+  //     const timeUntilNextMidnight = nextMidnight - now;
+
+  //     setTimeout(() => {
+  //       handleNewDay();
+  //       scheduleNextDay();
+  //     }, timeUntilNextMidnight);
+  //   };
+
+  //   scheduleNextDay();
+
+  //   return () => clearTimeout(scheduleNextDay);
+  // }, []);
+
+  // Handle pet click (show queasy effect)
+  const handlePetClick = () => {
+    setIsQueasy(true);
+    setPetImage("/pet_queasy.png");
+
+    setTimeout(() => {
+      setIsQueasy(false);
+    }, 2000);
+  };
+
+  // Handle eye movement
   const handleMouseMove = (e) => {
     const container = e.currentTarget.getBoundingClientRect();
     const centerX = container.left + container.width / 2;
@@ -88,12 +120,11 @@ const GamePage = () => {
     setPupilPosition({ x, y });
   };
 
-  // 🍽️ Handle Food Button Hover (Pet Gets Excited)
+  // Handle food hover effects
   const handleHover = () => {
     if (!isEating) setPetImage("/pet_eating.png");
   };
 
-  // 🍽️ Handle Food Button Leave (Reset Pet Emotion)
   const handleHoverLeave = () => {
     if (!isEating) {
       setPetImage(hunger <= 25 ? "/pet_sad.png" : hunger <= 65 ? "/pet_nah.png" : "/pet_happy.png");
@@ -115,18 +146,15 @@ const GamePage = () => {
             onMouseEnter={handleHover}
             onMouseLeave={handleHoverLeave}
             onClick={() => handleFeedPet(food.hungerIncrease, food.cost)}
-            disabled={money < food.cost} // Disable button if not enough money
+            disabled={money < food.cost}
           >
             {food.name} ({food.cost} coins)
           </button>
         ))}
       </div>
 
-      {/* 🌅 New Day Button */}
-      <button className="new-day-button" onClick={handleNewDay}>🌅 Simulate New Day</button>
-
       <div className="pet-container">
-        <img id="pet-image" src={petImage} alt="Virtual Pet" />
+        <img id="pet-image" src={petImage} alt="Virtual Pet" onClick={handlePetClick} />
 
         <div className="eyes">
           <div className="eye">
@@ -153,4 +181,3 @@ const GamePage = () => {
 };
 
 export default GamePage;
-
