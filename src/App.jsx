@@ -73,7 +73,7 @@ function Home({ taskName, setTaskName, taskDate, setTaskDate, taskDifficulty, se
       </div>
       
       <div>
-        <h2>Task Management Game</h2>
+        <h2>Go Puffle Care</h2>
         <h3>Complete real-life tasks to keep your virtual pet alive</h3>
         <div className="task-form">
         <input 
