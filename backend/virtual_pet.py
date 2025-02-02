@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from datetime import datetime
+from datetime import date, datetime
+from flask_socketio import SocketIO
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend-backend communication
+socketio = SocketIO(app, cors_allowed_origins="*") #Enable WebSocket support
 
 # Set up SQLite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
@@ -23,6 +25,21 @@ class Task(db.Model):
 # Create the database
 with app.app_context():
     db.create_all()
+
+# Route to fetch all tasks due today
+@app.route('/tasks/today', methods=['GET'])
+def get_todays_tasks():
+    today = date.today().strftime('%Y-%m-%d')  # Get today's date in 'YYYY-MM-DD' format
+    tasks = Task.query.filter_by(task_date=today).all()
+    return jsonify([
+        {
+            'id': task.id,
+            'task_name': task.task_name,
+            'task_date': task.task_date,
+            'task_difficulty': task.task_difficulty,
+            'task_completed': task.task_completed
+        } for task in tasks
+    ])
 
 # Route to fetch all tasks
 @app.route('/tasks', methods=['GET'])
@@ -59,24 +76,54 @@ def add_task():
         db.session.add(new_task)
         db.session.commit()
 
-        return jsonify({'message': 'Task added successfully!', 'task': {
+        # Emit event to notify frontend about the new task
+        socketio.emit('task_added', {
             'id': new_task.id,
             'task_name': task_name,
             'task_date': task_date,
             'task_difficulty': task_difficulty,
             'task_completed': False
+        }, namespace= '/', broadcast=True)
+
+        return jsonify({'message': 'Task added successfully!', 'task': {
+            'id': new_task.id,
+            'task_name': task_name,
+            'task_date': task_date,
+            'task_difficulty': task_difficulty,
+            ##'task_completed': False #by the default, this is false so no need to specify
         }}), 201
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# Toggle task completion status
+@app.route('/tasks/complete', methods=['POST'])
+def complete_task():
+    data = request.json
+    task_id = data.get("task_id")
+    completed = data.get("completed")
+
+    task = Task.query.get(task_id)
+    if task:
+        task.task_completed = completed
+        db.session.commit()
+
+        # Emit event to notify frontend about the update
+        socketio.emit('task_updated', {
+            'id': task.id,
+            'task_completed': completed
+        }, namespace= '/', broadcast=True)
+
+
+        return jsonify({"message": "Task updated successfully"}), 200
+    return jsonify({"error": "Task not found"}), 404
+
+'''# Toggle task completion status
 @app.route('/toggle_completed/<int:id>', methods=['PATCH'])
 def toggle_completed(id):
     task = Task.query.get_or_404(id)
     task.task_completed = not task.task_completed
     db.session.commit()
-    return jsonify({'message': 'Task updated', 'task_completed': task.task_completed})
+    return jsonify({'message': 'Task updated', 'task_completed': task.task_completed})'''
 
 # Delete a task
 @app.route('/delete/<int:id>', methods=['DELETE'])
@@ -88,4 +135,4 @@ def delete_task(id):
 
 # Run Flask app
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+   socketio.run(app, debug=True, port=5000)
