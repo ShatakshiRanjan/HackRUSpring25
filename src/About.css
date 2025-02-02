@@ -1,0 +1,41 @@
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding: 20px;
+  }
+  
+  .about-overlay {
+    background-color: rgba(255, 255, 255, 0.89); /* Semi-transparent white */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .about-overlay h2,
+  .about-overlay h3 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .about-overlay p,
+  .about-overlay ul {
+    color: #444;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .about-overlay ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    text-align: left;
+  }
+  
+  .about-overlay ul li {
+    margin-bottom: 10px;
+  }
+  

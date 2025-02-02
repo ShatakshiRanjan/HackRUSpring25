@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from "./Navbar";
+import About from "./About";
 import GamePage from './GamePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import EndOfDayCountdown from './EndOfDayCountdown';
 import CalendarComponent from './CalendarComponent';
-//import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
 //import { Checkbox } from "@/components/ui/checkbox";
 
 function App() {
@@ -31,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game" element={<GamePage />} />
+          <Route path='/about' element={<About/>}/>
         </Routes>
       </div>
     </Router>
@@ -46,8 +46,8 @@ function Home(){
         <h2>Task Management Game</h2>
         <h3>Complete real-life tasks to keep your virtual pet alive</h3>
         <div>
-          <input placeholder='Add Task'/>
-          <input placeholder='Due Date'/>
+          <input type = 'text' placeholder='Add Task'/>
+          <input type = 'date'placeholder='Due Date'/>
           <button>Go</button>
         </div>
       </div>

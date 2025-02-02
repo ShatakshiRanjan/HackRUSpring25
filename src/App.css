@@ -8,6 +8,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
+  overflow-y: auto; /* Allow vertical scrolling */
 }
 .main-container{
   flex: 1; /*take up remaining space*/
@@ -26,7 +27,7 @@
   align-items: center;
   gap: 20px;
   background-color: #ffffff;
-  width: 50%;
+  width: 75%;
   padding: 20px;
   border-radius: 15px;
 }
@@ -41,15 +42,17 @@
   align-items: center;
   gap: 20px;
   background-color: #b3ebf2;
-  width: 50%;
+  width: 75%;
   padding: 20px;
   border-radius: 15px;
 
 }
+/*
 .countdown{
   background-color: aliceblue;
   color: red;
 }
+*/
 /*
 #root {
   max-width: 1280px;

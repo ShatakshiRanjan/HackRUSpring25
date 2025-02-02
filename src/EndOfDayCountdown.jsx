@@ -7,7 +7,7 @@ const EndOfDayCountdown = () => {
     midnight.setHours(24,0,0,0);
 
     return (
-        <div style={{fontSize: "24px", fontFamily: "Arial, sans-serif", backgroundColor: "white", color:"red"}}>
+        <div style={{fontSize: "24px", fontFamily: "Arial, sans-serif", backgroundColor: "white", color:"red", borderRadius: '15px'}}>
             <h2 style={{color:"black"}}>Countdown</h2>
             <Countdown date={midnight}/>
         </div>
