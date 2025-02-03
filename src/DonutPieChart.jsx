@@ -41,12 +41,6 @@ const DonutPieChart = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
-      title: { 
-        display: true, 
-        text: "Progress", 
-        font: { size: 16, weight: "bold", family: "Arial, sans-serif" }, 
-        color: "#333"
-      },
     },
   };
 
@@ -54,9 +48,9 @@ const DonutPieChart = () => {
     <div className="donut-chart-wrapper">
       <h4 className="progress-title">Progress</h4>
       <Doughnut data={data} options={options} />
-      <p className="donut-label">
-        ✅ {completedTasks} | ❌ {uncompletedTasks}
-      </p>
+      <div className="donut-label">
+        Tasks Completed:  {completedTasks} Remaining: {uncompletedTasks}
+      </div>
     </div>
   );
 };

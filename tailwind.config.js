@@ -8,5 +8,4 @@ module.exports = {
       extend: {},
     },
     plugins: [],
-};
-  
+}; //tailwindcss@4.0.2

@@ -9,7 +9,7 @@ const CalendarComponent = () => {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:5000/tasks/today");
+            const response = await axios.get("http://127.0.0.1:5000/tasks");
     
             const data = response.data; // Axios automatically parses JSON
             const formattedTasks = {};
@@ -52,7 +52,7 @@ const CalendarComponent = () => {
                         <div>
                             <ul className="task-list">
                                 {tasks[dateString].map((task, index) => (
-                                    <li key={index} style={{ color: task.completed ? "gray" : "black" }}>
+                                    <li title ={task.text} key={index} style={{ color: task.completed ? "gray" : "black" }}>
                                         {task.text}
                                     </li>
                                 ))}

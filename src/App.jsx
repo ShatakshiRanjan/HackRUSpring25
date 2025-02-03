@@ -3,7 +3,6 @@ import Navbar from "./Navbar";
 import About from "./About";
 import GamePage from "./GamePage";
 import EndOfDayCountdown from "./EndOfDayCountdown";
-import CalendarComponent from "./CalendarComponent";
 import Checklist from "./Checklist";
 import DonutPieChart from "./DonutPieChart";
 import Streak from "./Streaks";
@@ -64,10 +63,10 @@ function App() {
 function Home({ taskName, setTaskName, taskDate, setTaskDate, taskDifficulty, setTaskDifficulty, addTask }){
   return(
     <div className='main-container'>
-    <div className='container1'>
+    <div className='iframe-container'>
         <iframe
           className="game-iframe"
-          src="http://localhost:5173/game"
+          src="http://localhost:5173/game?iframe=true"
           title="Game Screen"
           frameBorder="0">  
         </iframe>
@@ -75,9 +74,11 @@ function Home({ taskName, setTaskName, taskDate, setTaskDate, taskDifficulty, se
       </div>
       
       <div>
-        <h2>Go Puffle Care</h2>
+        <div className="title-container">
+        <h2>Go Go Puffle Care</h2>
         <h3>Complete real-life tasks to keep your virtual pet alive</h3>
-        <div className="task-form">
+        </div>
+        <div className="task-form-container">
         <input 
                 type="text" 
                 value={taskName} 
@@ -97,15 +98,14 @@ function Home({ taskName, setTaskName, taskDate, setTaskDate, taskDifficulty, se
           <button onClick={addTask}>Add Task</button>
         </div>
       </div>
-
-      {/* Calendar, Countdown, and Stats Section */}
       <div className="container2">
-        <CalendarComponent />
-        <EndOfDayCountdown />
-        <Checklist />
-        <DonutPieChart></DonutPieChart>
-        <Streak></Streak>
+      {/* Calendar, Countdown, and Stats Section */}
+        <div id="div_checklist"><Checklist/></div>
+        <div id="div_countdown"><EndOfDayCountdown /></div>
+        <div id="div_piechart"><DonutPieChart></DonutPieChart></div>
+        <div id="div_streak"><Streak></Streak></div>
       </div>
+     
     </div>
   );
 }

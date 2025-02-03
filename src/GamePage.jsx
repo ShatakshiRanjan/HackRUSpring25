@@ -131,6 +131,15 @@ const GamePage = () => {
       setPetImage(hunger <= 25 ? "/pet_sad.png" : hunger <= 65 ? "/pet_nah.png" : "/pet_happy.png");
     }
   };
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("iframe") === "true") {
+      const navbar = document.querySelector(".navbar");
+      if (navbar) {
+        navbar.style.display = "none"; // Hide the navbar
+      }
+    }
+  }, []);
 
   return (
     <div className="game-container" onMouseMove={handleMouseMove}>
