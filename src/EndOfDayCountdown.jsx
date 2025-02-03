@@ -11,9 +11,10 @@ const EndOfDayCountdown = () => {
     const countdownRenderer = ({ hours, minutes, seconds }) => (
         <span>{hours.toString().padStart(2, '0')}:{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</span>
     );
+    //marginRight: '60px'
 
     return (
-        <div className="countdown" style={{ fontSize: "24px", fontFamily: "Arial, sans-serif", backgroundColor: "white", color: "red", borderRadius: '15px', padding: '10px', textAlign: 'center', marginRight: '60px'}}>
+        <div className="countdown" style={{ fontSize: "24px", fontFamily: "Arial, sans-serif", backgroundColor: "white", color: "red", borderRadius: '15px', padding: '10px', textAlign: 'center' }}>
             <h2 style={{ color: "black" }}>Countdown</h2>
             <Countdown date={midnight} renderer={countdownRenderer} />
         </div>
