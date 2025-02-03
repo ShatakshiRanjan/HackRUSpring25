@@ -22,7 +22,7 @@ const About = () => {
         <p>We are passionate about combining technology and habit-building:</p>
         <ul>
           <li><strong>Shatakshi Ranjan</strong>: Frontend & UI/UX</li>
-          <li><strong>Jasmine Justine</strong>: Backend & API</li>
+          <li><strong>Jasmine Justin</strong>: Backend & API</li>
           <li><strong>Shreya Shukla</strong>: Full Stack & Integration</li>
         </ul>
 
